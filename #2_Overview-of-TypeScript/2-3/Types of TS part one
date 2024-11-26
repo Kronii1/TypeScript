@@ -1,0 +1,67 @@
+이번 강의에서는
+지금까지 살펴본 기본적인 TypeScript의 타입 외의 다른 타입들을 알아본다.
+
+문법쓰는법
+(예시)
+let a : number[] = [1,2]
+그냥 콜론(:)을 써주고 타입을 적어주면 된다.
+
+Optional type 이란?
+예를들어 player라는 object가 있다고 가정한다.
+const player = {
+    name : "kronii"
+}
+
+여기서 챌린지
+만약 player라는게 있고
+player들 중 몇몇은 age가 있고 몇몇은 age가 없지만
+모두 name을 가지고 있다고 생각해보자.
+
+그러니까 모든 player가 name은 있지만 그 중 몇몇만 age를 가지고 있는거지
+어떻게 typescript로 만들 수 있을까?
+
+정답)
+const player : {name:string,age?:number} = {
+    name:"kronii"
+}
+
+물음표를 뒤에 붙힐경우
+예를들어 age는 number라는 데이터 타입을 가지고 있는데
+물음표가 붙으면 number이거나 undefined를 가진다 ---> number | undefined
+
+Alias사용법 (코드 재사용 방법)
+type Player = {
+    name:string,
+    age?:number
+}
+
+const playerKronii : Player = {
+    name:"kronii"
+}
+
+코드가 깔끔하고 명확해질때만 쓰기
+
+
+
+function playerMaker(name:stirng,age?:number) = {
+    return {
+        name:name,
+    }
+}
+
+같은 이름을 가진다면 생략해도가능
+function playerMaker(name:stirng,age?:number) : Player = {
+    return {
+        name,
+    }
+}
+
+const kronii = playerMaker("Kronii")
+
+const playerMaker = (name:string) = Player = {(name)}
+
+
+이번 영상에서 배운 건 먼저 Object의 타입을 명시적으로 정해주는 방법
+코드를 재사용할 수 있는 방법
+그 안에 선택적 타입을 가진 것을 만들 수 있는 방법을 배웠다.
+정말 유용할거다.
