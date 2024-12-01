@@ -1,0 +1,80 @@
+이번 시간에는
+overloading(오버로딩)에 대해 얘기해볼것이다.
+
+function overloading 이나
+method overloading 이라고도 부르는데
+
+오버로딩에 대해서 이야기하려는 이유는
+실제로 많은 오버로딩된 함수를 직접 작성하진 않을거야 그 대신
+
+내가 대부분의 시간을 다른 사람들이 만든 외부 라이브러리를 사용할텐데
+이런 패키지나 라이브러리들은 오버로딩을 엄청 많이 사용해
+
+한번 기억해보자
+type Add = (a:number,b:number) => number --> 얘는 call signature 이라고 불렀지
+우리가 타입스크립트에게 이 함수가 어떻게 호출되는지 설명해주는 부분이지
+파라미터의 타입은 무엇인지, 함수의 리턴 타입은 무엇인지 말이야
+
+오버로딩이란 무엇일까?
+오버로딩은 함수가 여러개의 call signatures를 가지고 있을 때 발생시켜
+그냥 여러개가 아니라 서로 다른 여러 개의 call signature를 가졌을 때 발생해
+
+바보같은 예시를 하나 들어볼게
+type Add = {
+    (a:number,b:number) : number
+    (a:number,b:string) : number
+}
+
+여기는 type Add가 있고, 두 가지 다른 call signatures를 가질거야
+
+이 Add라는 함수는
+(a:number,b:number) : number 이걸로도 부를 수 있고
+
+(a:number,b:string) : number 이걸로도 부를 수도 있지
+그러면 그 즉시 타입스크립트는 이게 잘못되었다는걸 알게 돼  --> const add: Add (a,b) => "a+b" = 에러발생
+
+파라미터 a는 항상 number로 고정되지만
+파라미터 b는 string이 될 수도 있고 number가 될 수도 있기 때문이야
+
+그래서 에러 내용으로는
+b가 string도 될 수 있고 number도 될 수 있어서
+string과 number는 더할 수 없다고 말해줘
+
+그래서 저부분에서 체크해줘야해
+const add : Add = (a,b) => {
+    if(typeof b === "string") return a
+    return a + b
+}
+말했지만 이건 나쁜 예시야
+왜냐면 이건 극소수의 함수만 이런식으로 할 수 있어서 아무 의미가 없어
+그래도 오버로딩의 핵심을 보여줘
+
+다시 말하면, 오버로딩은 여러 call signatures가 있는 함수일 뿐이야.
+
+다음으로 넘어가기전에 알아야 할 게 있는데
+다른 여러개의 argument를 가지고 있을 때 발생하는 효과야
+
+type Add = {
+    (a:number,b:number,c:number) : number,
+    (a:number,b:number) : number
+}
+
+const add :Add = (a,b,c) => {
+    return a+b
+}
+이런식으로 다른 개수의 파라미터를 가지게 되면
+나머지 파라미터도 타입을 지정해줘야한다.
+
+c는 아마도 number일 것이다라는 것을 알려주는거야
+Add를 부를 때 a,b를 부를수도 있고
+a,b,c를 부를 수도 있기 때문에
+그래서 의미하는 바는 기본적으로 c는 옵션이라는거야
+type Add = {
+    (a:number,b:number,c:number) : number,
+    (a:number,b:number) : number
+}
+
+const add :Add = (a,b,c?:number) => {
+    if(c) return a+b+c
+    return a+b
+}
