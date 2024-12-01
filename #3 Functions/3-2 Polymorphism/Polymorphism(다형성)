@@ -1,0 +1,53 @@
+이번에는 다형성에 대해서 얘기해보려고 한다.
+
+다형성(polymorphism)이란 무엇일까?
+여러가지 다른 구조들이라는 뜻이다
+
+type SuperPrint = {
+    (arr:number[]):void
+    (arr:boolean[]):void
+    (arr:string[]):void
+}
+여기있는 타입은 concrete type이 아닌데
+concrete type이란
+우리가 전부터 봐왔던 타입들을 얘기해
+number,boolean,string,void,unknown 이런것들이 concrete type이야
+
+여기서 우리는 타입스크립트한테 generic타입을 받을 거라고 알려줄 건데
+
+const superPrint : SuperPrint = (arr) => {
+    arr.forEach(i => console.log(i))
+}
+
+superPrint([1,2,3,4])
+superPrint([true,false,true])
+superPrint(["a","b","c"])
+
+generic타입이란
+타입의 placeholder 같은 거야
+concrete type을 사용하는 것 대신 쓸 수 있어
+우리는 타입스크립트에서 placeholder를 쓸 수 있고
+그게 뭔지 추론해서 함수를 사용하는 거야
+
+generic을 왜 사용할까?
+우리는 call signature를 작성할 때,
+여기 들어올 확실한 타입(concrete type)을 모를 때에 generic을 사용해
+
+
+type SuperPrint = {
+    <TypePlaceholder>(arr:TypePlaceholder[]):void
+}
+이것이 타입스크립트에게 이 call signature가 제네릭을 받는다는 걸 알려주는 방법이다.
+
+const superPrint : SuperPrint = (arr) => {
+    arr.forEach(i => console.log(i))
+}
+
+superPrint([1,2,3,4]) --> 타입스크립트는 superPrint가 number타입의 배열로 동작한다는걸 generic을 통해 알게됨
+superPrint([true,false,true]) --> 이 라인에서는 superPrint 함수에 boolean타입이 주어졌다는걸 알게 됨
+superPrint(["a","b","c"])
+superPrint([1,2,true,false])
+
+타입스크립트는 들어온 값들을 보고 타입을 유추하고
+기본적으로 유추한 타입으로 call signature를 보여준다.
+
