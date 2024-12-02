@@ -1,0 +1,6 @@
+generics
+제네릭은 기본적으로 placeholder를 사용해서 네가 작성한 코드의 타입 기준으로 바꿔준다
+제네릭은 내가 요구한 대로 signature를 생성해줄 수 있는 도구라고 생각하기
+
+placeholder는
+call signature를 요구하는 대로 생성한다.

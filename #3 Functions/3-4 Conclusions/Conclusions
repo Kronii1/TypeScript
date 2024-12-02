@@ -1,0 +1,47 @@
+이번영상에서는
+실제로 제네릭을 어떻게 다루는지 살펴보고 우리의 모험을 마무리 지을 거야
+
+type SuperPrint = <T>(a:T[]) => T
+
+const superPrint : SuperPrint = (a) => a[0]
+
+=> 일반함수로 대체가능
+function superPrint<V>(a:V[]){
+    return a[0]
+}
+이게 superPrint를 구현한거야
+
+const a = superPrint([1,2,3,4])
+cosnt b = superPrint([true,false,true])
+
+
+type Player<E> = {
+    name:string
+    extraInfo:E
+}
+
+type KroniiExtra = {
+    favFood : string
+}
+
+type KroniiPlayer = Player<KroniiExtra>
+
+const kronii: KroniiPlayer = {
+    name:"kronii",
+    extraInfo:{
+        favFood:"pizza"
+    }
+}
+이런식으로 내가 원하는대로 코드를 확장하는 것이 가능하다.
+예를 들면 여기에
+KroniiExtra타입을 만들고 Player 타입의 제네릭 안에 넣어줬지
+그리고 그걸 KroniiPlayer라는 새로운 타입을 만들고 그걸 사용했지
+
+const ahri : Player<null> = {
+    name:"ahri",
+    extraInfo:null
+}
+
+만약 많은 것들이 있는 큰 타입을 하나 가지고 있는데
+그중 하나가 달라질 수 있는 타입이라면,
+제네릭을 넣거나 커스텀한 타입을 보낼 수도 있다.
