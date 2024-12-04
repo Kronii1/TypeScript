@@ -1,0 +1,129 @@
+이번 강의에서는 TypeScript로 객체지향 프로그래밍을 해볼거야
+
+class Player {
+    constructor(
+        //파라미터를 여기에 적으면 TypeScript가 알아서 Constructor 함수를 만들어줘
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+}
+
+const kronii = new Player("ouro","kronii","크로니");
+
+kronii.firstName
+//  => firstName은 private 때문에 사용할 수 없다
+
+
+/*
+    추상클래스란?
+    TypeScript와 객체지향 프로그램이
+    가지고 있는 엄청 훌륭한 것은
+    추상클래스(Abstract Class)이다
+ */
+
+abstract class User {
+     constructor(
+        //파라미터를 여기에 적으면 TypeScript가 알아서 Constructor 함수를 만들어줘
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+}
+
+// 추상클래스는 다른 클래스가 상속받을 수 있는 클래스다.
+class Player1 extends User {
+
+}
+
+
+/*
+    추상클래스 안의 메소드랑 abstract method(추상메소드)란?
+    
+     */
+
+    abstract class User1 {
+     constructor(
+        //파라미터를 여기에 적으면 TypeScript가 알아서 Constructor 함수를 만들어줘
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+
+/* 
+    그러면 우리가 알다시피,
+    User로부터 이 메소드를 상속받았으므로, Player는
+    kronii.getFullName()을 사용할 수 있다.
+
+
+
+    만약 getFullName을 private로 만들면 다시 사용하지못한다.
+    private getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    private 및 public이 프로퍼티 뿐만 아니라 method에서도 작동한다.
+*/
+
+
+/*
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    이건 추상 클래스 안에 들어가 있는 메소드인데
+    더 놀라운 것은 우리가 추상 메소드를 만들 수 있다는것이다.
+    
+    추상 메소드를 만들려면, 메소드를 클래스 안에서
+    구현하지 않으면 된다.
+
+    getFullName(){
+        return `${this.firstName} ${this.lastName}` --> 이부분을 구현하지 않으면 된다. 이부분이 메소드의 implementation(구현)이다.
+    }
+    
+
+    메소드란?
+    메소드는 클래스 안에 존재하는 함수이다.
+
+    추상클래스 안에서는
+    추상 메소드를 만들 수 있다.
+
+    하지만 메소드를 구현하여서는 안 되고 대신에
+    메소드의 call signature만 적어둬야 한다.
+
+    예를 들면
+    User추상클래스 안에 getNickName 추상 메소드가 있다고 하자.
+
+    abstract class User1 {
+     constructor(
+        //파라미터를 여기에 적으면 TypeScript가 알아서 Constructor 함수를 만들어줘
+        private firstName:string,
+        private lastName:string,
+        private nickname:string
+    ){}
+    abstract getNickName(여기에 argument 추가 가능 ar:string) : void. --> 이건 메소드의 call signature 만을 가지고 있다. 
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+
+
+    추상 메소드란?
+    내가 추상 클래스를 상속받는 모든 것들이 구현을 해야하는 메소드를 의미한다.
+    class Player extends User {
+        getNickName(){
+        }
+    }
+ */
+
+
+/* 
+    private 란?
+    이 property들은 당연히 인스턴스 밖에서
+    접근할수가 없고, 다른 자식 클래스에서도 접근할 수 없어
+
+    private은 말 그대로 개인적인 것을 말하고,
+    User 클래스의 인스턴스나 메소드에서 접근할 수 있으나
+    getFullName은 추상 클래스여서 인스턴스화 할 수 없어 
+ */
