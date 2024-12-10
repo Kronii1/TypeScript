@@ -1,0 +1,100 @@
+class Player{
+    constructor(
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+}
+
+const kronii = new Player("kronii","ouro","크로니");
+
+/* 클래스 안에 파라미터를 써주면 타입스크립트가 알아서 constructor함수를 만들어준다 */
+
+/* 추상클래스
+    추상클래스는 다른 클래스가 상속받을 수 있는 클래스이다.
+ */
+
+abstract class User{
+    constructor(
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+    /* 메소드
+        클래스 안에 존재하는 함수
+     */
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+
+/* User로부터 메소드를 상속받았으므로, Player1dms getFullName() 메소드를 사용가능 */
+class Player1 extends User{
+
+}
+
+const kronii1 = new Player1("kronii","ouro","크로니");
+kronii1.getFullName();
+
+/* 추상메소드
+    추상 클래스를 상속받는 모든 것들이 구현을 해야하는 메소드를 의미한다.
+    메소드를 클래스 안에서 구현하지 않으면 된다.
+
+
+    % 추상 클래스 안에서는 추상 메소드를 만들 수 있다.
+    하지만, 메소드를 구현하여서는 안되고 대신에
+    메소드의 call signature만 적어둬야 한다.
+ */
+
+abstract class User2{
+    constructor(
+        private firstName:string,
+        private lastName:string,
+        public nickname:string
+    ){}
+    abstract getNickName():void
+    /* 메소드
+        클래스 안에 존재하는 함수
+     */
+    getFullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+
+/* User로부터 메소드를 상속받았으므로, Player1dms getFullName() 메소드를 사용가능 */
+class Player2 extends User2{
+
+}
+/* getNickName을 구현하지않아서 오류가생김 */
+class Player2 extends User2{
+    getNickName(){
+        console.log(this.)
+    }
+}
+/* 
+    private라 first,lastName이 사용불가한데
+
+    만약 프로퍼티를 private으로 만들면
+    클래스를 상속받았을지라도 
+    ex) Player2가 User2에게 상속을 받아도
+    fisrtName,lastName은 private라 접근할 수 없다.
+
+
+
+    그래서 존재하는게 protected이다
+    protected는 private와는 다르다.
+
+    정리하자면
+    private로 만들어진 프로퍼티의 경우
+    당연히 인스턴스 밖에서 접근할 수 없고,
+    상속받은 자식 클래스에서도 접근 할 수없다.
+
+    priavte는 말그대로
+    개인적인 것을 의미하고,
+    User클래스의 인스턴스나 메소드에서 접근할 수 있다.
+
+    protected는
+    클래스밖에서는 프로퍼티를 사용할 수 없지만
+    상속받은 클래스에서는 사용할 수 있다.
+ */
+
