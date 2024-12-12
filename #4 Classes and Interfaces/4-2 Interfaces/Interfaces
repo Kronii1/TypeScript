@@ -1,0 +1,48 @@
+type Words = {
+    [whatever:string]:string
+}
+
+
+class Dict{
+    private words:Words
+    constructor(){
+        this.words = {}
+    }
+    add(word:Word){
+        if(this.words[word.term] === undefined){
+            this.words[word.term] = word.def;
+        }
+    }
+    def(term:string){
+        return this.words[term]
+    }
+}
+
+class Word {
+    constructor(
+        public term:string,
+        public def : string
+    ){}
+}
+
+const bibimbab = new Word("bibimbab","한국의 음식");
+
+오늘 수정해볼 것은
+term과 def 두가지 프로퍼티들을 public로 선언했었는데
+
+단어를 추가 할 때 add에서 word를 받으면,
+term과 def를 사용하기때문에 public 으로 선언했었다.
+
+하지만 누군가가 단어의 내용을 수정하게 하게 만들면 안되는데
+bibimbab.def = "bad word"
+
+뭔 말이냐면,
+값을 보여주고는 싶지만 수정을 못하게 막고싶다는건데
+그럴때는 프로퍼티를 readonly로 만들어주면 된다.
+
+class Ex1 {
+    constructor(
+        public readonly term:string,
+        public readonly def : string
+    ){}
+}
