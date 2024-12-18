@@ -45,3 +45,7 @@ props 로 함수를 보내게 되면, 타입스크립트한테 설명해줘야 �
 const add:Add = (a,b) => a + b
 여기는 타입스크립트가 없어
 왜냐면 타입스크립트가 이걸 다 알고 있기 때문이야 call signature가 설명해주고 있기 때문이다.
+
+
+type Add = /* (a:number,b:number) => number */
+타입스크립트에게 이 함수가 어떻게 호출되는지 설명해주는 부분이다.
