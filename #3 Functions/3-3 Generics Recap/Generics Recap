@@ -4,3 +4,24 @@ generics
 
 placeholder는
 call signature를 요구하는 대로 생성한다.
+
+
+generics대신 any를 써도 결과는 똑같아지지만
+TypeScript의 보호를 받지못하기 때문에 제네릭을 call signature에 사용해야한다
+
+
+// 제네릭 타입을 하나 더 추가하고 싶을 때
+
+//사용할 제네릭 이름 추가후(M) M을 사용한다고 지정해주면된다.
+type SuperPrint = <T,M>(a: T[],b:M) => T
+
+const superPrint : SuperPrint = (a) => a[0]
+
+const a = superPrint([1,2,3,4],"x")
+const b = superPrint([true,false,true],314)
+const c = superPrint(["a","b","c"],5)
+const d = superPrint([1,2,true,false,"hello"],"'o'")
+
+
+any와 generics은 똑같지 않다
+generics은 우리의 요청에 따라 call signature을 만들어준다.
