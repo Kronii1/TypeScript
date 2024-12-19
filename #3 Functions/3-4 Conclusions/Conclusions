@@ -45,3 +45,69 @@ const ahri : Player<null> = {
 만약 많은 것들이 있는 큰 타입을 하나 가지고 있는데
 그중 하나가 달라질 수 있는 타입이라면,
 제네릭을 넣거나 커스텀한 타입을 보낼 수도 있다.
+
+
+/*
+
+// 1. last(arr)
+function lastFunc<V>(a: V[]) {
+  return a[a.length - 1];
+}
+
+const a = lastFunc([1, 2, 3, 4]);
+
+console.log("last(arr) Last Index value is " + a);
+
+// 2. prepend(arr,item)
+function prepend<V>(a: V[], b: V) {
+  return (a[0] = b);
+}
+
+const b = prepend([], "K");
+console.log("prepend First Index value is " + b);
+
+// 3. mix(arr,arr)
+function mix<V, M>(a: V[], b: M[]) {
+  const arr = [...a, ...b];
+  return arr;
+}
+
+const c = mix([1, 2], ["hi"]);
+console.log("mix value is " + c);
+
+// 4. count(arr)
+function count<V>(a: V[]) {
+  return a.length;
+}
+
+const d = count([1, 2, 3, 4, 5, 6, "t"]);
+console.log("count func value is " + d);
+
+// 5.findIndex(arr,item)
+function findIndex<V>(a: V[], b: V) {
+  const findNum = a.find((num) => num == b);
+  if (findNum) {
+    return a.indexOf(findNum);
+  } else {
+    return null;
+  }
+}
+
+const e = findIndex([4, 2, 3, 1, 5], 1);
+console.log("findIndex func value is " + e);
+
+// 6.slice(arr,startIndex,endIndex)
+function slice<V>(a: V[], startIndex: number, endIndex?: number) {
+  if (endIndex == undefined) {
+    return a.slice(startIndex);
+  } else {
+    return a.slice(startIndex, endIndex);
+  }
+}
+
+const f = slice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2, 4);
+console.log("slice func value is " + f);
+
+const f1 = slice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5);
+console.log("slice f1 func value is " + f1);
+*/
