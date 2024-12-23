@@ -1,0 +1,96 @@
+/* 추상 abstract 클래스는 이걸 상속받는 다른 클래스가
+    가질 property와 메소드를 지정하도록 해준다.
+ */
+abstract class User{
+    constructor(
+        protected firstName:string,
+        protected lastName:string
+    ){}
+    abstract sayHi(name:string):string
+    abstract fullName():string
+}
+/* 지금 추상클래스에는 구현된게 없으며
+    단지 다른 클래스가 따라야 할 설계도느낌만을 제시했을 뿐이다.
+
+    sayHi,fullName메소드를 구현해야 하고
+    firstName,lastName을 갖게된다.
+ */
+
+/*
+    protected란
+    추상 클래스로부터 상속받은 클래스들이 property에 접근하도록 해준다.
+ */
+
+class Player extends User {
+    fullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    sayHi(name:string){
+        return `Hello ${name}. My name is ${this.fullName}`
+    }
+}
+
+
+// 인터페이스
+interface User{
+    firstName:string,
+    lastName:string,
+    sayHi(name:string):string
+    fullName():string
+}
+
+interface Human{
+    health:number
+}
+
+/* 인터페이스를 상속(implements)받을 때는 property를 private로 만들지 못한다.
+    반드시 public가 되어야한다.
+
+    하나 이상의 인터페이스도 상속받을 수 있다.
+ */
+class Player implements User,Human {
+    constructor(
+        public firstName:string,
+        public lastName:string,
+        public health:number
+    ){}
+     fullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    sayHi(name:string){
+        return `Hello ${name}. My name is ${this.fullName}`
+    }
+}
+
+/*
+    인터페이스를 상속하는 것의 문제점 중 하나는
+    private property를 사용하지 못한다는 것과
+    
+    추상클래스에서는 constructor가
+     constructor(
+        protected firstName:string,
+        protected lastName:string
+    ){}
+    이 귀찮은 부분을 해주도록 할 수 있었지만
+
+    interface User  {
+        firstName:string,
+        lastName:string,
+        sayHi(name:string):string
+        fullName():string
+    }
+    인터페이스를 사용하게 되면,
+    이 부분을 해 줄 constructor가 없다.
+ */
+
+/* 이런식으로 클래스 타입으로도 사용가능하다. */
+function makeUser(user:User){
+    return "hi"
+}
+
+makeUser({
+    firstName:"ouro",
+    lastName:"kronii",
+    fullName:() => "ouro kronii",
+    sayHi : (name) => "string",
+})
