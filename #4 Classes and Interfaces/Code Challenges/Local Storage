@@ -1,0 +1,72 @@
+/* LocalStorage API */
+
+interface IStorage<T>{
+    [key:string]:T
+}
+
+interface INumberStorage<T>{
+    [key:number]:T
+}
+
+abstract class LocalStorage<T>{
+    private storage:IStorage<T> = {}
+    setItem(key:string,value:T){
+        this.storage[key] = value;
+        //존재하고있는 키 확인 후 에러 메시지 띄우기
+    }
+    getItem(key:string):T{
+        return this.storage[key]
+    }
+    clearItem(key:string){
+        delete this.storage[key]
+    }
+    clear(){
+        return this.storage = {}
+    }
+}
+
+class StringStorage<T> extends LocalStorage<T>{
+
+}
+
+class BooleanStorage<T> extends LocalStorage<T>{
+
+}
+
+class NumberStorage<T> extends LocalStorage<T>{
+
+}
+
+
+
+const stringsStorage = new StringStorage<string>()
+
+// stringsStorage.setItem("첫번째","파랑색")
+// console.log(stringsStorage.getItem("첫번째"))
+// stringsStorage.setItem("두번째","시계")
+
+// console.log(stringsStorage)
+// stringsStorage.clear()
+// console.log(stringsStorage)
+
+const booleansStorage = new BooleanStorage<boolean>()
+// booleansStorage.setItem("첫번째",true)
+// console.log(booleansStorage.getItem("첫번째"))
+// booleansStorage.setItem("두번째",false)
+
+// console.log(booleansStorage.clearItem("첫번째"))
+
+// console.log(booleansStorage)
+// booleansStorage.clear()
+// console.log(booleansStorage)
+
+const numbersStorage = new NumberStorage<number>()
+// numbersStorage.setItem("첫번째",3.14)
+// console.log(numbersStorage.getItem("첫번째"))
+// numbersStorage.setItem("두번째",11.0010001111010111000010100011)
+
+// console.log(numbersStorage.clearItem("첫번째"))
+
+// console.log(numbersStorage)
+// numbersStorage.clear()
+// console.log(numbersStorage)
