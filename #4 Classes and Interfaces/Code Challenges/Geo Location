@@ -1,1 +1,122 @@
 // Geo Location
+/* Geolocation API */
+interface IGeoLocationAPI{
+    getCurrentPosition(
+        success : IGeoLocationSuccessFn,
+        error : IGeoLocationErrorFn | null,
+        option? : IGeoLocationApiOption 
+    ) : void
+    watchPosition(
+        success : IGeoLocationSuccessFn,
+        error : IGeoLocationErrorFn | null,
+        option? : IGeoLocationApiOption 
+    ) : void
+    clearWatch(
+        id : number
+    ) : void
+    // watchPosition()로 등록한 위치 변화 감지 콜백을 해제하는 역할
+}
+
+// success 인터페이스
+interface IGeoLocationSuccessFn{
+    (success : IGeoLocationPositionAttribute) : void
+}
+
+interface IGeoLocationPositionAttribute{
+    readonly coords : IGeoLocationPositionCoordsProperties
+    readonly timestamp : IGeoLocationPositionTimestampProperty
+}
+
+
+interface IGeoLocationPositionCoordsProperties{
+    readonly latitude:number; // 위치의 위도를 10진수로 나타낸 값
+    readonly longitude:number; // 위치의 경도를 10진수로 나타낸 값
+    readonly altitude:number | null; // 해수면 기준 위치의 고도를 미터 단위로 값 반환  null값은 구현에서 데이터를 제공할 수 없을 경우 반환
+    readonly accuracy :number; // latitude 및 longitude속성을 미터 단위로 반환 
+    readonly altitudeAccuracy : number | null; // double타입 미터로 표현된 정확도를 나타내는 a를 반환함 null값은 구현에서 데이터를 제공할 수 없을 경우 반환
+    readonly heading : number | null; // 장치가 향하는 방향을 나타내고 반환한다. speed property또는 제공할 수 없는 값일 경우 null 반환
+    readonly speed : number | null; // 장치의 속도를 초당 미터롤 나타내는 값을 반환  speed의 값은 null일 수 도 있다.
+}
+
+interface IGeoLocationPositionTimestampProperty{
+    readonly timestamp : number; // UnixTime제공
+}
+
+// error 인터페이스
+interface IGeoLocationErrorFn{
+    (error : IGeoLocationPositionErrorAttribute) : void
+}
+
+interface IGeoLocationPositionErrorAttribute{
+    readonly PERMISSION_DENIED : number; // Code Value Error Number 1
+    readonly POSITION_UNAVAILABLE : number; // Code Value Error Number 2
+    readonly TIMEOUT : number; // Code Value Error Number 3
+}
+
+// option 인터페이스
+interface IGeoLocationApiOption{
+    maximumAge:number; // 캐시에 저장한 위치정보를 대신 반환할 수 있는 최대 시간을 나타내는 양의 long 값 0일 경우 실시간 위치알아내는 시도해야함. 기본값 0
+    timeout:number; // 기기가 위치를 반환할 때 소모할 수 있는 최대 시간(밀리초)을 나타내는 양의 long 값 기본값은 infinite
+    enableHighAccuracy:boolean; // 위치정보를 가장 높은 정확도로 수신하고 싶음을 나타내는 boolean값 기본값은 false
+}
+
+class CGeoLocation implements IGeoLocationAPI{
+    getCurrentPosition(
+        success : IGeoLocationSuccessFn,
+        error? : IGeoLocationErrorFn | null,
+        option? : IGeoLocationApiOption 
+    ) {
+        if(success){
+            return console.log(success)
+        }
+        if(error){
+            return console.log(error)
+        }
+        if(option){
+            return console.log(option)
+        }
+        else{
+            return console.log("There's a problem")
+        }
+    }
+
+    watchPosition(
+        success : IGeoLocationSuccessFn,
+        error? : IGeoLocationErrorFn | null,
+        option? : IGeoLocationApiOption 
+    ) {
+        if(success){
+            return console.log(success)
+        }
+        if(error){
+            return console.log(error)
+        }
+        if(option){
+            return console.log(option)
+        }
+        else{
+            return console.log("There's a problem")
+        }
+    }
+    clearWatch(id:number){
+        return console.log("Congratulation, you reach the target" + id);
+    }
+}
+
+function test(){
+    // just test func
+}
+
+
+const geoLocation = new CGeoLocation()
+
+geoLocation.getCurrentPosition(test);
+geoLocation.getCurrentPosition(test,test);
+geoLocation.getCurrentPosition(test,test,{maximumAge:1,timeout:1,enableHighAccuracy:false})
+
+geoLocation.watchPosition(test);
+geoLocation.watchPosition(test,test);
+geoLocation.watchPosition(test,test,{maximumAge:1,timeout:1,enableHighAccuracy:false})
+
+geoLocation.clearWatch(1)
+geoLocation.clearWatch("1")
