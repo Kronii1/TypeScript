@@ -1,0 +1,22 @@
+interface ICheckType{
+    check:[]|String;
+}
+
+type TIsBoolean = <T>(value : T) => boolean
+
+type TChangeString = <T>(value:T) => String
+
+type TCheckTypeFunc = <T>(value:T) => T
+
+
+declare module "lodash" {
+function head(arr:number[]): number;
+function hasIn(obj:object,checkType:ICheckType): boolean
+function isBoolean(booleanChecker:TIsBoolean): boolean
+function toString(value:TChangeString): String
+function split(value:string,separator:RegExp | String,limit:number): String[]
+function hasPath(obj:Object,path:[] | String,hasFunc:boolean): boolean
+function filter(arrObj:[] | Object,func:TCheckTypeFunc): String[]
+function every<T>(collection:T[] | Object,predicate:T,guard:Object): boolean
+function map<T>(collection:[] | Object,iteratee:T): T[]
+}
